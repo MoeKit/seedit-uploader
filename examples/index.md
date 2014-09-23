@@ -6,8 +6,6 @@
 
 ````html
 <div style="width:50px;height:50px;background:red;" id="target"></div>
-
-
 ````
 
 ````javascript
