@@ -6,6 +6,20 @@
 
 ---
 
+## API
+
+```javascript
+seajs.use('index', function(seeditUploader) {
+	new seeditUploader({
+        target:'#target', // 目标
+        type:'image', // 类型，现在只支持image
+        limit:3 // 大小，单位为M
+    },function(data){
+		console.log(data);
+	});
+});
+```
+
 ## 测试
 
 测试页面必须使用(HOST绑定)符合3个环境的子域名。

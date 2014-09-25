@@ -10,7 +10,7 @@
 
 ````javascript
 seajs.use('index', function(seeditUploader) {
-	seeditUploader('#target',function(data){
+	seeditUploader({target:'#target',type:'image'},function(data){
 		console.log(data);
 		
 	});
