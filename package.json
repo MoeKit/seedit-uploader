@@ -1,13 +1,13 @@
 {
   "name": "seedit-uploader",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "seedit image uploader",
   "keywords": [],
   "homepage": "",
   "author": "",
   "repository": {
     "type": "git",
-    "url": "git://github.com/lizheng/seedit-uploader.git"
+    "url": "https://github.com/MoeKit/seedit-uploader.git"
   },
   "bugs": {
     "url": ""
@@ -18,7 +18,9 @@
     "dependencies": {
       "iframe-ajax": "0.0.7",
       "jquery": "1.8.3",
-      "seedit-config": "0.1.1"
+      "seedit-config": "0.1.1",
+      "import-style": "~1.0.0",
+      "seedit-api": "0.0.5"
     },
     "devDependencies": {
       "expect.js": "0.3.1"

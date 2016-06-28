@@ -1,0 +1,42 @@
+
+.mk-uploader-form{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.mk-uploader-form button{
+	border: 0
+}
+.mk-uploader-form input.mk-file{
+	cursor: pointer;
+	position: absolute;
+	border: 0;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	filter:alpha(opacity=0);
+	font-size: 500px\9;
+	left: -1px\9;
+}
+.mk-img{
+	width: 100%;
+	height: 100%
+}
+.mk-del{
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	background:#fc2246 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAABXCAMAAABGFileAAAANlBMVEUAAAD////////////////////////////////////////////////////////////////////xY8b8AAAAEXRSTlMACRXWwPUvut4/JuilfXNRH/efURkAAAG1SURBVFjDrdnbjoMwDATQBOoEKDf//89u6AWvtlQjzew8jsWRn4KipP9MLqX723Vlypq63czd+/UXk5ehVVZHXu2qvzKUdzfe392cWbb3M1ZerEV3yzQbGR5IbtsKcLCR9SgXdwUONtIf7eAaHGyka627BgcbKSkVBzDB+pTS5AAmWGvfZ7uEFdbrMap+CQusb8ds9GuYZ+tzOn+BWbZ/HWr5BmCCBTDJQphkMUyyGCZZDJMshkkWwySLYYnFMGYpGLMUjFkKxiwJI5aGAcvDgKXhHbAsbIBlYZkNWGcxrLMB6yyGdTZgzOqwzgYMWBHGrA4HK2W3S9Z2jY0TDP+ldTZgncWwzgassxjW2YBlVoeD5WHMYphkMSyzBmCS7fcbgNnrXgYwySYAsyyAWRbALItgksUwyWKYZDFMshgmWQyTLIY1FsOYpWDMUjBmKRizHAxZCa5fWRaej9kGWAYeY91PVoBrGxhgGdhymgDLwVMqgOXgkjrAcnAjesAy8NDKFbAMvBzd8MGq8D0fXbEPVoNtfHbl3Lg2loXnc9vx7Nb+8Qy5JSVjtaYMSwbPpsTO0/ke+wOGKdB8foO02gAAAABJRU5ErkJggg==") no-repeat center center;
+	background-size: 50% 50%;
+	border-radius: 50%;
+	outline: none;
+}
+.mk-del-ie{
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAUVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////8IN+deAAAAGnRSTlMAsry5rxaV+Ohpp2WgbRqimY9kGwrn4IqHHkHphBQAAADZSURBVDjLxdRJEoQgDAVQQUDFWXvM/Q/ag2Ls+jG9NDviKwlFSHZ6XJ4HH3xd+/3y0VQyDGUZdu5GRE5ylt4RfNr3Tp8wB46Kdl3O7rvGf+a0wK2sipYwoqPQbSknSbsm833SJInOcgokOEXm4EC65KA+PJHu+J9NZKdLqA8lOF2iw+iTi5keMcFed5a3Nv8cSt2hxP6LjS753vjedYedrPSzAYl9ClJzKJV+xhN1geuT5OjTsy4Ex2fnAdAW6jvikeIDO0kOMww3jPFaDj/jcvIy9FPdZSfHC+iKKUfQuVepAAAAAElFTkSuQmCC");
+}
+.hide{
+	display: none;
+}
