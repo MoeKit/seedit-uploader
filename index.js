@@ -10,11 +10,11 @@ var ua = navigator.userAgent;
 var androidUA = ua.match(/Android 4\.4(\.1)?(\.2)?/);
 
 var uploader = function(opt){
-
+    var _this = this;
+    _this.init(opt);
     if(!!(/LieBaoFast/).test(ua) && !!androidUA){
-        return alert('该浏览器版本无法支持上传功能，请更换浏览器以获得更好体验^_^')
+        return _this.errorMessage('该浏览器版本无法支持上传功能，请更换浏览器以获得更好体验^_^')
     }
-    this.init(opt);
     return this;
 }
 
