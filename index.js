@@ -38,6 +38,13 @@ uploader.prototype.init = function(opt){
             console.log(data)
         }
     }
+    this.upError = opt.upError || function(data){
+        if(!isIE()){
+            console.log(data)
+        }
+    }
+    this.beforeAjax = opt.beforeAjax || function(){
+    }
     this.errorMessage = opt.errorMessage || function(text){
         alert(text);
     }
@@ -140,6 +147,7 @@ uploader.prototype.uploaderAjax = function(form){
     var isShow = this.isShow;
     var img = form.find('.mk-img');
     var input = form.find('.mk-file')
+    _this.beforeAjax();
     $.ajax({
         url: 'http://image.' + domain + '/upload.php?__format=iframe',
         type: 'POST',
@@ -163,6 +171,9 @@ uploader.prototype.uploaderAjax = function(form){
                 }
             }
             _this.upSuccse(data)
+        },
+        error:function(data){
+            _this.upError(data);
         }
     });
 }

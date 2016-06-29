@@ -33,9 +33,12 @@ seeditUploader = new Uploader({
 
 ##事件机制
 
++ errorMessage: 验证失败时提示语句执行事件（触发Ajax前）
 + delSuccse: 图片删除成功后执行的事件
 + upSuccse: 图片上传成功后返回数据时执行的事件
-+ errorMessage: 错误时提示事件
++ upError: 图片上传失败后返回错误信息时执行的事件
++ beforeAjax: 图片上传前提醒用户等待的事件
+
 
 ##接口相关
 
