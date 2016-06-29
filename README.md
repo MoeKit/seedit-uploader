@@ -35,6 +35,7 @@ seeditUploader = new Uploader({
 
 + delSuccse: 图片删除成功后执行的事件
 + upSuccse: 图片上传成功后返回数据时执行的事件
++ errorMessage: 错误时提示事件
 
 ##接口相关
 

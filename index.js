@@ -38,6 +38,9 @@ uploader.prototype.init = function(opt){
             console.log(data)
         }
     }
+    this.errorMessage = opt.errorMessage || function(text){
+        alert(text);
+    }
 
     this.upload(opt);
 }
@@ -99,18 +102,18 @@ uploader.prototype.inputChange = function(form){
                     if (!!file.type && file.type.indexOf('image') == -1) {
                         input[0].outerHTML=copyInput;
                         _this.inputChange(form)
-                        return alert('只能上传图片哦');
+                        return _this.errorMessage('只能上传图片哦');
                     } else if(!file.type && navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
                         input[0].outerHTML=copyInput;
                         _this.inputChange(form)
-                        return alert('请将图片文件放入相册，并从相册中选择')
+                        return _this.errorMessage('请将图片文件放入相册，并从相册中选择')
                     }
                 }
                 // 检查大小,默认为3M
                 if (file.size/1024 > limit * 1000) {
                     input[0].outerHTML=copyInput;
                     _this.inputChange(form)
-                    return alert('图片太大了哦，请上传小于' + limit + 'M的图片');
+                    return _this.errorMessage('图片太大了哦，请上传小于' + limit + 'M的图片');
                 }
                 _this.uploaderAjax(form)
             } else if(isIE()){
@@ -120,11 +123,11 @@ uploader.prototype.inputChange = function(form){
                 if (type === 'image' && !reg.test(filetype)) {
                     input[0].outerHTML=copyInput;
                     _this.inputChange(form)
-                    return alert('只能上传图片哦');
+                    return _this.errorMessage('只能上传图片哦');
                 }
                 _this.uploaderAjax(form)
             } else {
-                alert('请更换浏览器以获得更好体验')
+                _this.errorMessage('请更换浏览器以获得更好体验')
             }
         });
 }
