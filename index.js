@@ -52,7 +52,6 @@ uploader.prototype.init = function(opt){
     this.upload(opt);
 }
 
-
 uploader.prototype.upload = function(options) {
     var _this = this;
     var target = $(this.target);
@@ -71,7 +70,7 @@ uploader.prototype.upload = function(options) {
     })
     if(!!(/bz-crazy-(android|ios)/).test(ua) && !!androidUA){
         input.on('click',function(){
-            window.Crazy.uploadImage('http://image.office.bzdev.net/upload.php', 'tmp');
+            window.Crazy.uploadImage(Config.getSiteUrl('image')+'/upload.php', 'tmp');
             window.uploadImageCallback = function(data){
                 _this.upSuccse(data)
                 if(isShow){
