@@ -30,6 +30,7 @@ uploader.prototype.init = function(opt){
     this.target = opt.target;
     this.isShow = opt.isShow || false;
     this.isDel = opt.isDel || false;
+    this.classtype= opt.classtype || 'user';
     this.delBtnW = opt.delBtnW || '30%';
     this.delSuccse = opt.delSuccse || function(){
     }
@@ -57,12 +58,16 @@ uploader.prototype.upload = function(options) {
     var target = $(this.target);
     var isDel = this.isDel;
     var isShow = this.isShow;
+    var classtype = this.classtype;
     var form = formDiv.replace('{{img}}', this.isShow? imgDiv : '')
-                        .replace('{{del}}', this.isDel? delDiv : '');
+                        .replace('{{del}}', this.isDel? delDiv : '')
+                        .replace('{{classtype}}',this.classtype ? classtype : '');
     var $form = $(form);
     var input = $form.find('.mk-file');
     var img = $form.find('.mk-img');
     var del = $form.find('.mk-del');
+    var del = $form.find('input[name="'+classtype+'"]');
+
     target.append($form);
     del.css({
         'width':this.delBtnW,

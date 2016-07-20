@@ -9,6 +9,7 @@
 ## 使用方法
 >存在isShow属性，且其值为true，上传后可预览  
 >存在isDel属性，且其值为true，上传预览后可删除
+>classtype 'string',上传图片是否带水印,可选值['user','sys']，默认'user'带水印
 
 ```javascript
 var Uploader = require('seedit-uploader');
