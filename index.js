@@ -66,8 +66,7 @@ uploader.prototype.upload = function(options) {
     var input = $form.find('.mk-file');
     var img = $form.find('.mk-img');
     var del = $form.find('.mk-del');
-    var del = $form.find('input[name="'+classtype+'"]');
-
+    
     target.append($form);
     del.css({
         'width':this.delBtnW,
