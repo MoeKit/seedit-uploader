@@ -3,4 +3,8 @@
 	<input name="file" type="file" id="file" class="mk-file" accept="image/*">
 	{{img}}
 	{{del}}
+	{{width}}
+	{{height}}
+	{{within}}
+	{{force}}
 </form>

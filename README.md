@@ -11,6 +11,8 @@
 >存在isDel属性，且其值为true，上传预览后可删除
 >classtype 'string',上传图片是否带水印,可选值['user','sys']，默认'user'带水印
 
+>添加图片尺寸选项：可使用等比压缩和强制填充,详情看初始化参数 [width] [height] [adaptive] [force]
+
 ```javascript
 var Uploader = require('seedit-uploader');
 	
@@ -25,12 +27,16 @@ seeditUploader = new Uploader({
 
 ##初始化参数
 
-+ limit:   限制上传文件大小（IE无效)，单位为M，默认值为3, 最大值不超过接口限制(10)
-+ type:    限制上传文件类型，默认值为image
-+ target:  选择器，添加组件的容器（必填）
-+ isShow:  上传后是否预览，值为true或false，默认为false
-+ isDel:   上传预览后是否可删除，值为true或false，默认为false
-+ delBtnW: 删除按钮的直径大小，默认值30%
++ limit:    限制上传文件大小（IE无效)，单位为M，默认值为3, 最大值不超过接口限制(10)
++ type:     限制上传文件类型，默认值为image
++ target:   选择器，添加组件的容器（必填）
++ isShow:   上传后是否预览，值为true或false，默认为false
++ isDel:    上传预览后是否可删除，值为true或false，默认为false
++ delBtnW:  删除按钮的直径大小，默认值30%
++ width:    默认不传，如指定宽度尺寸，则按宽等比缩放
++ height:   默认不传，如指定高度尺寸，则按高等比缩放
++ within: 默认不传，如指定宽高尺寸且within参数值为1，则按最小边等比缩放
++ force:    默认不传, 如指定宽度尺寸且force参数值为1，则强制填充（拉伸或压缩）指定的图片尺寸 <br><span style="font-size: 12px;color:red">*如within与force同时存在，within参数则无效</span>
 
 ##事件机制
 

@@ -5,7 +5,7 @@ require('iframe-ajax')($,{});
 var Config = require('seedit-config');
 var formDiv = require('./src/tpl/form.tpl')
 var imgDiv = '<img class="mk-img hide">';
-var delDiv = '<a href="javascript:void(0)" class="mk-del hide"></a>'
+var delDiv = '<a href="javascript:void(0)" class="mk-del hide"></a>';
 var ua = navigator.userAgent;
 var androidUA = ua.match(/Android 4\.4(\.1)?(\.2)?/);
 
@@ -32,6 +32,10 @@ uploader.prototype.init = function(opt){
     this.isDel = opt.isDel || false;
     this.classtype= opt.classtype || 'user';
     this.delBtnW = opt.delBtnW || '30%';
+    this.width  = opt.width  ? '<input type="hidden" name="resizer_width" value="'+opt.width+'">' : '';
+    this.height = opt.height ? '<input type="hidden" name="resizer_height" value="'+opt.height+'">' : '';
+    this.within = opt.within ? '<input type="hidden" name="resizer_within" value="'+opt.within+'">' : '';
+    this.force = opt.force ? '<input type="hidden" name="resizer_force" value="'+opt.force+'">' : '';
     this.delSuccse = opt.delSuccse || function(){
     }
     this.upSuccse = opt.upSuccse || function(data){
@@ -61,7 +65,11 @@ uploader.prototype.upload = function(options) {
     var classtype = this.classtype;
     var form = formDiv.replace('{{img}}', this.isShow? imgDiv : '')
                         .replace('{{del}}', this.isDel? delDiv : '')
-                        .replace('{{classtype}}',this.classtype ? classtype : '');
+                        .replace('{{classtype}}',this.classtype ? classtype : '')
+                        .replace('{{width}}',this.width)
+                        .replace('{{height}}',this.height)
+                        .replace('{{within}}',this.within)
+                        .replace('{{force}}',this.force)
     var $form = $(form);
     var input = $form.find('.mk-file');
     var img = $form.find('.mk-img');
@@ -149,8 +157,10 @@ uploader.prototype.uploaderAjax = function(form){
     var isDel = this.isDel;
     var isShow = this.isShow;
     var img = form.find('.mk-img');
-    var input = form.find('.mk-file')
+    var input = form.find('.mk-file');
+    console.log(form)
     _this.beforeAjax();
+     console.log(form)
     $.ajax({
         url: 'http://image.' + domain + '/upload.php?__format=iframe',
         type: 'POST',
@@ -162,7 +172,7 @@ uploader.prototype.uploaderAjax = function(form){
                     var json = (new Function("return"+data))();
                     var _url = json.data.url;
                 } else {
-                        var _url = JSON.parse(data).data.url;
+                    var _url = JSON.parse(data).data.url;
                 }
                 img.attr('src',_url);
                 img.removeClass('hide');
