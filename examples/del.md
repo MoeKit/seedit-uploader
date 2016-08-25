@@ -32,7 +32,10 @@ function init(){
 				console.log(data)
 			},
 			beforeAjax:function(percent){
-				$('.test').text(percent);
+				console.log('lalala~')
+			},
+			progress:function(percent){
+				$('.test').text(percent)
 			}
 		})
 	}

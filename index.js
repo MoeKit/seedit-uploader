@@ -48,7 +48,9 @@ uploader.prototype.init = function(opt){
             console.log(data)
         }
     }
-    this.beforeAjax = opt.beforeAjax;
+    this.beforeAjax = opt.beforeAjax || function(){
+    }
+    this.progress = opt.progress;
     this.errorMessage = opt.errorMessage || function(text){
         alert(text);
     }
@@ -80,6 +82,7 @@ uploader.prototype.upload = function(options) {
     })
     if(!!(/bz-crazy-(android|ios)/).test(ua) && !!androidUA){
         input.on('click',function(){
+            _this.beforeAjax();
             window.Crazy.uploadImage(Config.getSiteUrl('image')+'/upload.php', 'tmp');
             window.uploadImageCallback = function(data){
                 _this.upSuccse(data)
@@ -101,6 +104,7 @@ uploader.prototype.upload = function(options) {
         _this.inputChange($form)
     }
 };
+
 uploader.prototype.inputChange = function(form){
         var _this = this;
         var type = this.type;
@@ -151,6 +155,7 @@ uploader.prototype.inputChange = function(form){
             }
         });
 }
+
 uploader.prototype.uploaderAjax = function(form){
     var _this = this;
     var target = $(this.target),
@@ -160,8 +165,9 @@ uploader.prototype.uploaderAjax = function(form){
     var isShow = this.isShow;
     var img = form.find('.mk-img');
     var input = form.find('.mk-file');
+    _this.beforeAjax();
     if(isIE()){    
-        _this.beforeAjax('上传中..');
+        _this.progress('上传中..');
         $.ajax({
             url: 'http://image.' + domain + '/upload.php?__format=iframe',
             type: 'POST',
@@ -196,10 +202,10 @@ uploader.prototype.uploaderAjax = function(form){
             },
             xhr: function(){
                 var xhr = $.ajaxSettings.xhr();
-                if(!!_this.beforeAjax){
+                if(!!_this.progress){
                     if (xhr.upload) {
                         if(ua.match(/Android 4.2.1/)){
-                            _this.beforeAjax('上传中..');
+                            _this.progress('上传中..');
                         }
                         xhr.upload.addEventListener('progress', function(event) {
                             var percent = 0;
@@ -207,7 +213,7 @@ uploader.prototype.uploaderAjax = function(form){
                             var total = event.total;
                             if (event.lengthComputable) {
                                 percent = Math.ceil(position / total * 100);
-                                _this.beforeAjax(percent);
+                                _this.progress(percent);
                             }
                         }, false);
                     }

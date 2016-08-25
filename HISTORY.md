@@ -26,4 +26,4 @@
 
 ## 0.0.6
 
-'fix' 修改beforeAjax事件，返回上传百分比
+'fix' 添加progress事件，返回上传进度
