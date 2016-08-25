@@ -1,9 +1,9 @@
 'use strict';
 var $ = require('jquery');
-require('./src/css/style.css')
+require('./src/css/style.css');
 require('iframe-ajax')($,{});
 var Config = require('seedit-config');
-var formDiv = require('./src/tpl/form.tpl')
+var formDiv = require('./src/tpl/form.tpl');
 var imgDiv = '<img class="mk-img hide">';
 var delDiv = '<a href="javascript:void(0)" class="mk-del hide"></a>';
 var ua = navigator.userAgent;
@@ -48,12 +48,10 @@ uploader.prototype.init = function(opt){
             console.log(data)
         }
     }
-    this.beforeAjax = opt.beforeAjax || function(){
-    }
+    this.beforeAjax = opt.beforeAjax;
     this.errorMessage = opt.errorMessage || function(text){
         alert(text);
     }
-
     this.upload(opt);
 }
 
@@ -74,7 +72,7 @@ uploader.prototype.upload = function(options) {
     var input = $form.find('.mk-file');
     var img = $form.find('.mk-img');
     var del = $form.find('.mk-del');
-    
+
     target.append($form);
     del.css({
         'width':this.delBtnW,
@@ -124,7 +122,11 @@ uploader.prototype.inputChange = function(form){
                     } else if(!file.type && navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
                         input[0].outerHTML=copyInput;
                         _this.inputChange(form)
-                        return _this.errorMessage('请将图片文件放入相册，并从相册中选择')
+                        if(ua.match(/Android 4.2.1/)){
+                            return _this.errorMessage('请用摄像头拍摄上传');
+                        } else {
+                            return _this.errorMessage('请将图片文件放入相册，并从相册中选择')
+                        }
                     }
                 }
                 // 检查大小,默认为3M
@@ -158,37 +160,81 @@ uploader.prototype.uploaderAjax = function(form){
     var isShow = this.isShow;
     var img = form.find('.mk-img');
     var input = form.find('.mk-file');
-    console.log(form)
-    _this.beforeAjax();
-     console.log(form)
-    $.ajax({
-        url: 'http://image.' + domain + '/upload.php?__format=iframe',
-        type: 'POST',
-        iframe: true,
-        form: form,
-        success: function(data) {
-            if(isShow){
-                if(isIE(6) || isIE(7)){
-                    var json = (new Function("return"+data))();
-                    var _url = json.data.url;
-                } else {
+    if(isIE()){    
+        _this.beforeAjax('上传中..');
+        $.ajax({
+            url: 'http://image.' + domain + '/upload.php?__format=iframe',
+            type: 'POST',
+            iframe: true,
+            form: form,
+            success: function(data) {
+                if(isShow){
                     var _url = JSON.parse(data).data.url;
+                    img.attr('src',_url);
+                    img.removeClass('hide');
+                    if(isDel){
+                        input.addClass('hide');
+                        _this.formDel(target);
+                    } else {
+                        input.val('')
+                    }
                 }
-                img.attr('src',_url);
-                img.removeClass('hide');
-                if(isDel){
-                    input.addClass('hide');
-                    _this.formDel(target);
-                } else {
-                    input.val('')
-                }
+                _this.upSuccse(data)
+            },
+            error:function(data){
+                _this.upError(data);
             }
-            _this.upSuccse(data)
-        },
-        error:function(data){
-            _this.upError(data);
-        }
-    });
+        });
+    } else {
+        var fd = new FormData(form[0]);
+        $.ajax({
+            url: 'http://image.' + domain + '/upload.php',
+            type: 'POST',
+            data: fd,
+            xhrFields: {
+                withCredetials: true
+            },
+            xhr: function(){
+                var xhr = $.ajaxSettings.xhr();
+                if(!!_this.beforeAjax){
+                    if (xhr.upload) {
+                        if(ua.match(/Android 4.2.1/)){
+                            _this.beforeAjax('上传中..');
+                        }
+                        xhr.upload.addEventListener('progress', function(event) {
+                            var percent = 0;
+                            var position = event.loaded || event.position;
+                            var total = event.total;
+                            if (event.lengthComputable) {
+                                percent = Math.ceil(position / total * 100);
+                                _this.beforeAjax(percent);
+                            }
+                        }, false);
+                    }
+                }
+                return xhr;
+            },
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            success: function(data) {
+                if(isShow){
+                    var _url = data.data.url;
+                    img.attr('src',_url);
+                    img.removeClass('hide');
+                    if(isDel){
+                        input.addClass('hide');
+                        _this.formDel(target);
+                    } else {
+                        input.val('')
+                    }
+                }
+                _this.upSuccse(data)
+            },
+            error:function(data){
+                _this.upError(data);
+            }
+        });
+    }
 }
 
 uploader.prototype.formDel = function(target){

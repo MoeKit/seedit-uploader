@@ -16,6 +16,9 @@ seeditUploader = new Uploader({
 	type:'image',
 	upSuccse:function(data){
 		console.log(data)
+	},
+	beforeAjax:function(percent){
+		console.log(percent)
 	}
 });
 
