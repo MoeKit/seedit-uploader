@@ -25,9 +25,9 @@ function init(){
 		var _id = arr[i].id;
 		seeditUploader = new Uploader({
 			target:'#'+_id,
-			type:'image',
 			isShow:true,
 			isDel:true,
+			isCompress:true,
 			upSuccse:function(data){
 				console.log(data)
 			},

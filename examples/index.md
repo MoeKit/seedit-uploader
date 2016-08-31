@@ -13,7 +13,6 @@ var Uploader = require('seedit-uploader');
 	
 seeditUploader = new Uploader({
 	target:'#target1',
-	type:'image',
 	upSuccse:function(data){
 		console.log(data)
 	}

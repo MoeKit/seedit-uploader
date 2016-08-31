@@ -26,7 +26,6 @@ var Uploader = require('seedit-uploader');
 //按宽度等比缩放
 seeditUploader = new Uploader({
 	target:'#target1',
-	type:'image',
 	isShow:true,
 	classtype:'sys',
 	width:200,
@@ -38,7 +37,6 @@ seeditUploader = new Uploader({
 //按高度等比缩放
 seeditUploader1 = new Uploader({
 	target:'#target2',
-	type:'image',
 	isShow:true,
 	classtype:'sys',
 	height:200,
@@ -51,7 +49,6 @@ seeditUploader1 = new Uploader({
 //自适应等比缩放（须指定宽高）
 seeditUploader2 = new Uploader({
 	target:'#target3',
-	type:'image',
 	isShow:true,
 	classtype:'sys',
 	width:200,
@@ -65,7 +62,6 @@ seeditUploader2 = new Uploader({
 //填充（须指定宽高）
 seeditUploader3 = new Uploader({
 	target:'#target4',
-	type:'image',
 	isShow:true,
 	classtype:'sys',
 	width:200,
