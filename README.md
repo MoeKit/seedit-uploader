@@ -47,7 +47,7 @@ seeditUploader = new Uploader({
 + delSuccse:         图片删除成功后执行的事件
 + upSuccse:          图片上传成功后返回图片链接时执行的事件
 + upError:           图片上传失败后返回错误信息时执行的事件
-+ beforeAjax:        调用接口前的事件
++ beforeAjax:        调用接口前的事件，使用app内部上传控件的三个系统暂时设置无效
 + beforeCompress：   压缩前事件，isCompress为false则设置无效
 + progress：         返回图片上传进度，若外部无传入事件则不执行.(IE及安卓4.2.1只返回纯文字)
 + pcompressProgress：返回图片压缩进度（伪），isCompress为false则设置无效

@@ -82,13 +82,19 @@ uploader.prototype.upload = function(options) {
 
     if(!!(/bz-crazy-(android|ios)/).test(ua) && !!androidUA){
         input.on('click',function(){
-            _this.beforeAjax();
+            //等客户端把失败和取消的回调加上后启用beforAjax
+            //_this.beforeAjax(); 
             var time = parseInt(new Date().getTime()/1000);
             window.Crazy.uploadImage(Config.getSiteUrl('image')+'/upload.php', 'tmp');
             window.uploadImageCallback = function(data){
-                var _url = JSON.parse(data).data.url+'?'+time;
-                _this.showDel(url,input)
-                _this.upSuccse(url)
+                data = JSON.parse(data)
+                if (data.error_code == 0) {
+                    var url = data.data.url+'?'+time;
+                    _this.showDel(url)
+                    _this.upSuccse(url)
+                } else {
+                    _this.upError(data.error_message);
+                };
             }
             event.preventDefault();
         })
@@ -169,7 +175,7 @@ uploader.prototype.uploaderAjax = function(form){
             iframe: true,
             form: form,
             success: function(data) {
-                if (data.error_code === 0) {
+                if (data.error_code == 0) {
                     var url = JSON.parse(data).data.url+'?'+time;
                     _this.showDel(url)
                     _this.upSuccse(url)
@@ -213,7 +219,7 @@ uploader.prototype.uploaderAjax = function(form){
             processData: false, // 告诉jQuery不要去处理发送的数据
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
             success: function(data) {
-                if (data.error_code === 0) {
+                if (data.error_code == 0) {
                     var url = data.data.url+'?'+time;
                     _this.showDel(url)
                     _this.upSuccse(url)
@@ -400,7 +406,7 @@ uploader.prototype.compress = function(file){
                 // processData: false, // 告诉jQuery不要去处理发送的数据
                 // contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                 success: function(data) {
-                    if (data.error_code === 0) {
+                    if (data.error_code == 0) {
                         var url = data.data.url+'?'+time;
                         _this.showDel(url)
                         _this.upSuccse(url)
