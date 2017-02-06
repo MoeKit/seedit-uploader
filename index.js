@@ -147,7 +147,7 @@ uploader.prototype.inputChange = function(form,input){
 
         if(!!text){
             _this.errorMessage(text)
-        } else {
+        } else if(_this.api == ''){
             var domain = Config.getMainDomain().replace(/:\d+/, '');
             document.domain = domain;
         
@@ -156,6 +156,13 @@ uploader.prototype.inputChange = function(form,input){
                 _this.compress(file)
             } else {
                  _this.api =  /https/.test(location.href) ? 'https://image.' + domain + '/upload.php' : 'http://image.' + domain + '/upload.php';
+                _this.uploaderAjax(form)
+            }
+        } else {
+            if(!isIE() && _this.isCompress && file.size/1024 > _this.compressLimit){
+                _this.api = _this.api.replace(/upload/,'upload_base64') 
+                _this.compress(file)
+            } else {
                 _this.uploaderAjax(form)
             }
         }
