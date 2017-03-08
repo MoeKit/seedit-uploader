@@ -159,8 +159,13 @@ uploader.prototype.inputChange = function(form,input){
                 _this.uploaderAjax(form)
             }
         } else {
+            if(/upload_base64/.test(_this.api)){
+                _this.api = _this.api.replace(/upload_base64/,'upload');
+            }
             if(!isIE() && _this.isCompress && file.size/1024 > _this.compressLimit){
-                _this.api = _this.api.replace(/upload/,'upload_base64') 
+                if(!/upload_base64/.test(_this.api)){
+                    _this.api = _this.api.replace(/upload/,'upload_base64');
+                }
                 _this.compress(file)
             } else {
                 _this.uploaderAjax(form)
