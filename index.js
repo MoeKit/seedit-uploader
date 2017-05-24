@@ -152,10 +152,10 @@ uploader.prototype.inputChange = function(form,input){
             document.domain = domain;
         
             if(!isIE() && _this.isCompress && file.size/1024 > _this.compressLimit){
-                _this.api = /https/.test(location.href) ? 'https://image.' + domain + '/upload_base64.php' : 'http://image.' + domain + '/upload_base64.php';        
+                _this.api = /https/.test(location.href) ? 'https://upfile.' + domain + '/upload_base64.php' : 'http://upfile.' + domain + '/upload_base64.php';        
                 _this.compress(file)
             } else {
-                 _this.api =  /https/.test(location.href) ? 'https://image.' + domain + '/upload.php' : 'http://image.' + domain + '/upload.php';
+                 _this.api =  /https/.test(location.href) ? 'https://upfile.' + domain + '/upload.php' : 'http://upfile.' + domain + '/upload.php';
                 _this.uploaderAjax(form)
             }
         } else {
