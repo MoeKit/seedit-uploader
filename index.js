@@ -7,12 +7,14 @@ var formDiv = require('./src/tpl/form.tpl');
 var imgDiv = '<img class="mk-img hide">';
 var delDiv = '<a href="javascript:void(0)" class="mk-del hide"></a>';
 var ua = navigator.userAgent;
-var androidUA = ua.match(/Android 4\.4(\.1)?(\.2)?/);
+// var androidUA = ua.match(/Android 4\.4(\.1)?(\.2)?/);
+var androidUA = ua.match(/Android (\d)\.(\d).(\d)/) && ua.match(/Android (\d)\.(\d).(\d)/)[1] < 5; // 判断andriod小于5.0
+var isBzApp = /bz-([A-Za-z]{1,50})-(android|ios)/; // 判断是否播种app
 
 var uploader = function(opt){
     var _this = this;
     _this.init(opt);
-    if(!!(/LieBaoFast/).test(ua) && !!androidUA){
+    if(!!(/LieBaoFast/).test(ua) && androidUA){
         return _this.errorMessage('该浏览器版本无法支持上传功能，请更换浏览器以获得更好体验^_^')
     }
     return this;
@@ -80,10 +82,10 @@ uploader.prototype.upload = function(options) {
     target.append(form);
     _this.form = form;
 
-    if(!!(/bz-crazy-(android|ios)/).test(ua) && !!androidUA){
+    if(isBzApp && androidUA){
         input.on('click',function(){
             //等客户端把失败和取消的回调加上后启用beforAjax
-            //_this.beforeAjax(); 
+            //_this.beforeAjax();
             var time = parseInt(new Date().getTime()/1000);
             window.Crazy.uploadImage(Config.getSiteUrl('image')+'/upload.php', 'tmp');
             window.uploadImageCallback = function(data){
@@ -106,7 +108,7 @@ uploader.prototype.upload = function(options) {
 uploader.prototype.inputChange = function(form,input){
     var _this = this;
     var limit = _this.limit;
-    if(!!(/bz-crazy-(android|ios)/).test(ua) || ua.match(/micromessenger/gi)){
+    if(isBzApp || ua.match(/micromessenger/gi)){
         input.attr('accept','')
     }
     input.on('change',function(){
@@ -150,9 +152,9 @@ uploader.prototype.inputChange = function(form,input){
         } else if(_this.api == ''){
             var domain = Config.getMainDomain().replace(/:\d+/, '');
             document.domain = domain;
-        
+
             if(!isIE() && _this.isCompress && file.size/1024 > _this.compressLimit){
-                _this.api = /https/.test(location.href) ? 'https://upfile.' + domain + '/upload_base64.php' : 'http://upfile.' + domain + '/upload_base64.php';        
+                _this.api = /https/.test(location.href) ? 'https://upfile.' + domain + '/upload_base64.php' : 'http://upfile.' + domain + '/upload_base64.php';
                 _this.compress(file)
             } else {
                  _this.api =  /https/.test(location.href) ? 'https://upfile.' + domain + '/upload.php' : 'http://upfile.' + domain + '/upload.php';
@@ -179,7 +181,7 @@ uploader.prototype.uploaderAjax = function(form){
     var _this = this;
     _this.beforeAjax();
     var time = parseInt(new Date().getTime()/1000);
-    if(isIE()){    
+    if(isIE()){
         _this.progress('上传中..');
         $.ajax({
             url: _this.api+'?__format=iframe',
@@ -286,7 +288,7 @@ uploader.prototype.formDel = function(target){
         _target[0].parentNode.removeChild(_target[0]);
         _this.delSuccse();
     })
-} 
+}
 
 uploader.prototype.compress = function(file){
     var _this = this;
