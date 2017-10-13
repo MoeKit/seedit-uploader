@@ -87,7 +87,8 @@ uploader.prototype.upload = function(options) {
             //等客户端把失败和取消的回调加上后启用beforAjax
             //_this.beforeAjax();
             var time = parseInt(new Date().getTime()/1000);
-            window.Crazy.uploadImage(Config.getSiteUrl('image')+'/upload.php', 'tmp');
+            // 安卓必须加https
+            window.Crazy.uploadImage('https:' + Config.getSiteUrl('image')+'/upload.php', 'tmp');
             window.uploadImageCallback = function(data){
                 data = JSON.parse(data)
                 if (data.error_code == 0) {
