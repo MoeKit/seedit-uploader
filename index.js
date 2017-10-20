@@ -88,7 +88,11 @@ uploader.prototype.upload = function(options) {
             //_this.beforeAjax();
             var time = parseInt(new Date().getTime()/1000);
             // 安卓必须加https
-            window.Crazy.uploadImage('https:' + Config.getSiteUrl('image')+'/upload.php', 'tmp');
+            if (window.bzinner && window.bzinner.uploadImage) {
+                window.bzinner.uploadImage('https:' + Config.getSiteUrl('image')+'/upload.php', 'tmp');
+            } else {
+                window.Crazy.uploadImage('https:' + Config.getSiteUrl('image')+'/upload.php', 'tmp');
+            }
             window.uploadImageCallback = function(data){
                 data = JSON.parse(data)
                 if (data.error_code == 0) {
